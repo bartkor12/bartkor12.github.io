@@ -26,11 +26,50 @@
             position: fixed;
             top: 0px;
         }
+
+        button {
+            position: fixed;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            display: inline-block;
+        }
+        
+        #button1 {
+            top: 10%;
+            right: 5%;
+        }
+        #button2 {
+            top: 15%;
+            right: 5%;
+        }
+        #button3 {
+            top: 20%;
+            right: 5%;
+        }
+        #button4 {
+            top: 10%;
+            left: 5%;
+        }
+        #button5 {
+            top: 15%;
+            left: 5%;
+        }
+        #button6 {
+            top: 20%;
+            left: 5%;
+        }
     </style>
 </head>
 
 <body>
     <h2 id="title"> hello world</h2>
+    <button id="button1" onclick="changeGridSize(32)">Small Grid</button>
+    <button id="button2" onclick="changeGridSize(16)">Medium Grid</button>
+    <button id="button3" onclick="changeGridSize(8)">Large Grid</button>
+    <button id="button4" onclick="changeSpeed(16)">Slow Speed</button>
+    <button id="button5" onclick="changeSpeed(8)">Medium Speed</button>
+    <button id="button6" onclick="changeSpeed(0)">Fast Speed</button>
     <canvas width="400" height="400" id="game"></canvas>
     <script>
         var canvas = document.getElementById('game');
@@ -41,6 +80,14 @@
         var grid = 16;
         var count = 0;
         var speed = 0; // 0 is fast, 10 is slow
+
+        function changeGridSize(value) {
+            grid = value;
+            snake.dx = value;
+        }
+        function changeSpeed(value) {
+            speed = value;
+        }
 
         var snake = {
             x: 160,
