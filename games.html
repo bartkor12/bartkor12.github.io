@@ -3,18 +3,40 @@
 
 <head>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 5vw);
+            gap: 10px;
+            background-color: white;
+            padding: 80px 10%;
+        }
+
+        .gameWindow {
+            display: inline-block;
+            background-color: white;
+            border: 2px solid;
+            text-align: center;
+            width: 80%;
+            height: 300%;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="topnav">
-	<a href="/index.html">HOME</a>
+        <a href="/index.html">HOME</a>
         <a class="active" href="/games.html">GAMES</a>
         <a href="/software.html">OTHER SOFTWARE</a>
     </div>
 
-    <div class="content">
-
+    <div class="grid-container">
+        <div class="gameWindow"><a href="/snake.html">Customizable Snake Game (proper layout will be added)</a></div>
+        <div class="gameWindow">More games coming soon</div>
     </div>
 
 </body>
