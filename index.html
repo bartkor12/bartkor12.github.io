@@ -3,6 +3,12 @@
 
 <head>
     <link rel="stylesheet" href="styles.css">
+    <style>
+	#changelog {
+	top: 100px;
+	position: fixed;
+	}
+    </style>
 </head>
 
 <body>
@@ -12,7 +18,15 @@
         <a href="/software.html">OTHER SOFTWARE</a>
     </div>
 
-    <div class="content">
+    <div>
+    <h2 id="changelog">Fetching Changelog.</h2>
     </div>
 
 </body>
+<script>
+	fetch('https://api.github.com/repos/bartkor12/bartkor12.github.io/commits?per_page=1000')
+  .then(res => res.json())
+  .then(res => {
+    document.getElementById('changelog').innerHTML = res[2].commit.committer.date + "    " + res[2].commit.message
+  })
+</script>
