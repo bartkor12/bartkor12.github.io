@@ -2,31 +2,66 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-	#changelog {
-	top: 100px;
-	position: fixed;
-	}
-    </style>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    #changelog {
+      top: 250px;
+      position: fixed;
+      font-size: larger;
+      white-space: pre;
+
+    }
+
+    #changelogHeader {
+      top: 200px;
+      position: fixed;
+      text-align: center;
+      text-decoration-line: underline;
+    }
+
+    #toDoHeader {
+      top: 50px;
+      position: fixed;
+      text-align: center;
+      text-decoration-line: underline;
+    }
+    li {
+      font-size: larger;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="topnav"> 
-        <a class="active" href="/index.html">HOME</a>
-        <a href="/games.html">GAMES</a>
-        <a href="/software.html">OTHER SOFTWARE</a>
-    </div>
+  <div class="topnav">
+    <a class="active" href="/index.html">HOME</a>
+    <a href="/games.html">GAMES</a>
+    <a href="/software.html">OTHER SOFTWARE</a>
+  </div>
 
-    <div>
-    <h2 id="changelog">Fetching Changelog.</h2>
-    </div>
+  <div>
+    <h2 id="toDoHeader">ToDo </h2>
+    <ul style="top: 90px; position: fixed;">
+      <li>Feedback section</li>
+      <li>Better looking GAMES section</li>
+      <li>Make the overall website look better</li>
+      <li>Add some fun software</li>
+      <li>Port some more games over to this website</li>
+    </ul>
+    <h2 id="changelogHeader">Changelog</h2>
+    <p id="changelog">Fetching Changelog.</p>
+  </div>
 
 </body>
 <script>
-	fetch('https://api.github.com/repos/bartkor12/bartkor12.github.io/commits?per_page=1000')
-  .then(res => res.json())
-  .then(res => {
-    document.getElementById('changelog').innerHTML = res[2].commit.committer.date + "    " + res[2].commit.message
-  })
+
+  let changelog = "";
+
+  fetch('https://api.github.com/repos/bartkor12/bartkor12.github.io/commits')
+    .then(res => res.json())
+    .then(res => {
+      for (let i = 0; i < res.length; i++) {
+        changelog += "<b>" + res[i].commit.committer.name + ":   " + res[i].commit.committer.date + "</b>:   " + res[i].commit.message + "<br>" + "<br>";
+      }
+      document.getElementById('changelog').innerHTML = changelog;
+    })
 </script>

@@ -64,17 +64,64 @@
             top: 20%;
             left: 5%;
         }
+
         #copyright {
             position: fixed;
+            text-align: center;
             top: 3%;
         }
+
+        #movement1 {
+            height: 75px;
+            width: 75px;
+            background-image: url(Arrow.png);
+            background-size: cover;
+            border: 0px;
+            bottom: 1%;
+            rotate: 90deg;
+        }
+        #movement2 {
+            height: 75px;
+            width: 75px;
+            background-image: url(Arrow.png);
+            background-size: cover;
+            border: 0px;
+            bottom: 10%;
+            rotate: 270deg;
+        }
+        #movement3 {
+            height: 75px;
+            width: 75px;
+            background-image: url(Arrow.png);
+            background-size: cover;
+            border: 0px;
+            bottom: 1%;
+            left: 53vw;
+            rotate: 0deg;
+        }
+        #movement4 {
+            height: 75px;
+            width: 75px;
+            background-image: url(Arrow.png);
+            background-size: cover;
+            border: 0px;
+            bottom: 1%;
+            right: 53vw;
+            rotate: 180deg;
+        }
+
     </style>
 </head>
 
 <body>
     <h2 id="title"> Customizable Snake Game</h2>
-    <h5 id="copyright">Modified project originally from 
-        <a href="https://gist.github.com/ZiKT1229/5935a10ce818ea7b851ea85ecf55b4da">ZiKT1229's gist</a> 
+    <h5 id="copyright">Modified project originally from
+        <a href="https://gist.github.com/ZiKT1229/5935a10ce818ea7b851ea85ecf55b4da">ZiKT1229's gist
+        </a>
+        <br>
+        Arrow key pngs from user <a href=https://prinbles.itch.io>Prinbles on itch.io</a>, reccomended only for mobile devices
+        <br>
+        W-A-S-D to move
     </h5>
     <button id="button1" onclick="changeGridSize(40)">Small Grid</button>
     <button id="button2" onclick="changeGridSize(16)">Medium Grid</button>
@@ -82,6 +129,12 @@
     <button id="button4" onclick="changeSpeed(16)">Slow Speed</button>
     <button id="button5" onclick="changeSpeed(8)">Medium Speed</button>
     <button id="button6" onclick="changeSpeed(0)">Fast Speed</button>
+
+    <button id="movement1" onclick="arrowKeys(4)"></button>
+    <button id="movement2" onclick="arrowKeys(2)"></button>
+    <button id="movement3" onclick="arrowKeys(3)"></button>
+    <button id="movement4" onclick="arrowKeys(1)"></button>
+
     <canvas width="400" height="400" id="game"></canvas>
     <script>
         var canvas = document.getElementById('game');
@@ -92,6 +145,28 @@
         var grid = 16;
         var count = 0;
         var speed = 0; // 0 is fast, 10 is slow
+
+        function arrowKeys(key) {
+            if (key == 1 && snake.dx === 0) {
+                snake.dx = -grid;
+                snake.dy = 0;
+            }
+            // up arrow key
+            else if (key == 2 && snake.dy === 0) {
+                snake.dy = -grid;
+                snake.dx = 0;
+            }
+            // right arrow key
+            else if (key == 3 && snake.dx === 0) {
+                snake.dx = grid;
+                snake.dy = 0;
+            }
+            // down arrow key
+            else if (key == 4 && snake.dy === 0) {
+                snake.dy = grid;
+                snake.dx = 0;
+            }
+        }
 
         function changeGridSize(value) {
             grid = value;
