@@ -2,26 +2,64 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
 
     <style>
+        body {
+            background-image: url("/Backgrounds/LightMode2.jpg");
+            background-size: cover;
+        }
+
         .grid-container {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(4, 5vw);
-            gap: 50px;
-            background-color: white;
-            padding: 80px 10%;
+            row-gap: 220px;
+            padding: 50px 10%;
         }
 
         .gameWindow {
+            overflow: hidden;
+            box-shadow: -5px 5px rgb(43, 43, 43);
             display: inline-block;
             background-color: white;
+            background-size: cover;
             border: 2px solid;
             text-align: center;
             width: 80%;
             height: 300%;
+        }
+
+        .imageContainer {
+            height: 100%;
+            width: 100%;
+            background-color: aqua;
+        }
+
+        .imageContainer img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        @font-face {
+            font-family: "Arcade";
+            src: url("/Fonts/Arcade.ttf");
+        }
+
+        .displayText {
+            line-height: 0px;
+            font-family: Arcade;
+            font-size: small;
+            position: relative;
+            top: 240px;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        .gameWindow a {
+            -webkit-text-fill-color: blue;
         }
     </style>
 </head>
@@ -34,17 +72,52 @@
         <a href="/software.html">OTHER SOFTWARE</a>
     </div>
 
-    <h2 style="position: relative; top: 60px; font-weight: lighter;">
-        NOTICE: I did not make these games, i have only modded them or updated them to
+    <h2 style="font-weight: lighter">
+        NOTICE: I did not make these games, I have either modded them, updated them or
+        left them alone to
         make them more enjoyable, these are all either under the MIT or CC0 license
     </h2>
 
     <div class="grid-container">
-        <div class="gameWindow"><a href="/snake.html">Customizable Snake Game</a></div>
-        <div class="gameWindow"><a href="/Breakout.html">Breakout</a></div>
-        <div class="gameWindow"><a href="/pong.html">Pong</a></div>
-	<div class="gameWindow"><a href="/spaceInvaders.html">Space Invaders - By dwmkerr</a></div>
-        <div class="gameWindow">More games coming soon</div>
+
+        <div class="gameWindow"><a href="/snake.html">
+            <h3 class="displayText" >CUSTOMIZABLE SNAKE</h3>
+            <div class="imageContainer">
+                    <img src="/gifs/snake.gif">
+
+            </a>
+        </div>
+    </div>
+
+    <div class="gameWindow"><a href="/Breakout.html">
+            <h3 class="displayText">BREAKOUT</h3>
+            <div class="imageContainer">
+                <img src="/gifs/Breakout.gif">
+
+        </a>
+    </div>
+    </div>
+
+    <div class="gameWindow"><a href="/pong.html">
+            <h3 class="displayText">PONG</h3>
+            <div class="imageContainer">
+                <img src="/gifs/pong.gif">
+
+        </a>
+    </div>
+    </div>
+
+    <div class="gameWindow"><a href="/spaceInvaders.html">
+            <h3 class="displayText">SPACE INVADERS</h3>
+            <div class="imageContainer">
+                <img src="/gifs/spaceInvaders.gif">
+
+        </a>
+    </div>
+    </div>
+
+    <div class="gameWindow">
+        More games coming soon</div>
     </div>
 
 </body>

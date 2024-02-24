@@ -2,31 +2,53 @@
 <html>
 
 <head>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/styles.css">
   <style>
-    #changelog {
-      top: 250px;
-      position: fixed;
-      font-size: larger;
-      white-space: pre;
 
+    body {
+          background-image: url("/Backgrounds/LightMode.jpg");
     }
 
-    #changelogHeader {
-      top: 200px;
-      position: fixed;
-      text-align: center;
-      text-decoration-line: underline;
-    }
-
-    #toDoHeader {
-      top: 50px;
-      position: fixed;
-      text-align: center;
-      text-decoration-line: underline;
-    }
     li {
       font-size: larger;
+    }
+
+    .todo {
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      height: 1fr;
+      width: 500px;
+      overflow: auto;
+      grid-area: todo;
+      border-style: double;
+      display: block;
+    }
+
+    .changeLog {
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      overflow: auto;
+      border: 5px;
+      grid-area: changeLog;
+      border-style: double;
+      display: block;
+    }
+
+    .credits {
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      overflow: auto;
+      grid-area: credits;
+      border-style: double;
+    }
+
+    .layout {
+      position: relative;
+      border-style: double;
+      margin-top: 10px;
+      width: 100%;
+      height: 875px;
+
+      display: grid;
+      grid:
+        "todo changeLog" 1fr "credits changeLog" 3fr / auto 1fr;
     }
   </style>
 </head>
@@ -38,25 +60,49 @@
     <a href="/software.html">OTHER SOFTWARE</a>
   </div>
 
-  <div>
-    <h2 id="toDoHeader">ToDo </h2>
-    <ul style="top: 90px; position: fixed;">
-      <li>Feedback section</li>
-      <li>Better looking GAMES section</li>
-      <li>Make the overall website look better</li>
-      <li>Add some fun software</li>
-      <li>Port some more games over to this website</li>
-    </ul>
-    <h2 id="changelogHeader">Changelog</h2>
-    <p id="changelog">Fetching Changelog.</p>
-  </div>
+  <section class="layout">
+
+    <div class="todo">
+      <h2><u>ToDo</u></h2>
+
+      <ul>
+        <li>Feedback section</li>
+        <li>Add some fun software</li>
+        <li>Port some more games over to this website</li>
+        <li>Have another person collab with me on this project</li>
+        <li>Start work on a personal game</li>
+        <li>Get a proper complex game on the website</li>
+        <li>Add multiplayer games 0_o</li>
+      </ul>
+
+    </div>
+
+    <div class="changeLog">
+      <h2><u>Changelog</u></h2>
+      <p id="changelog" style="font-size: larger; white-space: pre;">Fetching Changelog.</p>
+
+    </div>
+
+    <div class="credits">
+      <h2><u>Credits</u></h2>
+      <ul>
+        <li>Basic HTML Games - By <a href="https://gist.github.com/straker">straker</a></li>
+        <li>Space Invaders - By <a href="https://github.com/dwmkerr/spaceinvaders?tab=MIT-1-ov-file#readme">dwmkerr</a></li>
+      </ul>
+    </div>
+
+  </section>
 
 </body>
 <script>
-
   let changelog = "";
 
-  fetch('https://api.github.com/repos/bartkor12/bartkor12.github.io/commits')
+  fetch('https://api.github.com/repos/bartkor12/bartkor12.github.io/commits', {
+    method: "GET",
+    headers: {
+      //need token
+    }
+  })
     .then(res => res.json())
     .then(res => {
       for (let i = 0; i < res.length; i++) {
