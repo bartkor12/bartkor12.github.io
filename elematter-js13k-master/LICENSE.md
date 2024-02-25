@@ -1,6 +1,6 @@
-MIT License
+The MIT License (MIT)
 
-Copyright (c) 2024 bartkor12
+Copyright (c) 2014 Jack Rugile
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,10 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-ATTRIBUTIONS:
-spaceinvaders (https://github.com/dwmkerr/spaceinvaders?tab=MIT-1-ov-file) by dwmkerr, included under the MIT license (https://opensource.org/license/mit/)
-
-elematter-js13k-master (https://github.com/jackrugile/elematter-js13k?tab=MIT-1-ov-file#readme) by jackrugile, included under the MIT license (https://opensource.org/license/mit/)
-
-minesweeper-master (https://github.com/kubowania/minesweeper) by kubowania, included under the MIT license (https://opensource.org/license/mit/)

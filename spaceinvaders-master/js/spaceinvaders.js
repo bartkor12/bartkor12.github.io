@@ -94,18 +94,18 @@ Game.prototype.initialise = function(gameCanvas) {
 };
 
 Game.prototype.moveToState = function(state) {
-
+ 
    //  If we are in a state, leave it.
    if(this.currentState() && this.currentState().leave) {
      this.currentState().leave(game);
      this.stateStack.pop();
    }
-
+   
    //  If there's an enter function for the new state, call it.
    if(state.enter) {
      state.enter(game);
    }
-
+ 
    //  Set the current state.
    this.stateStack.pop();
    this.stateStack.push(state);
@@ -156,7 +156,7 @@ function GameLoop(game) {
 
         //  Get the drawing context.
         var ctx = this.gameCanvas.getContext("2d");
-
+        
         //  Update if we have an update function. Also draw
         //  if we have a draw function.
         if(currentState.update) {
@@ -217,7 +217,7 @@ Game.prototype.touchend = function(s) {
 };
 
 Game.prototype.touchmove = function(e) {
-        var currentX = e.changedTouches[0].pageX;
+	var currentX = e.changedTouches[0].pageX;
     if (this.previousX > 0) {
         if (currentX > this.previousX) {
             delete this.pressedKeys[KEY_LEFT];
@@ -374,7 +374,7 @@ PlayState.prototype.enter = function(game) {
 };
 
 PlayState.prototype.update = function(game, dt) {
-
+    
     //  If the left or right arrow keys are pressed, move
     //  the ship. Check this on ticks rather than via a keydown
     //  event for smooth movement, otherwise the ship would move
@@ -468,7 +468,7 @@ PlayState.prototype.update = function(game, dt) {
     if(hitBottom) {
         game.lives = 0;
     }
-
+    
     //  Check for rocket/invader collisions.
     for(i=0; i<this.invaders.length; i++) {
         var invader = this.invaders[i];
@@ -479,7 +479,7 @@ PlayState.prototype.update = function(game, dt) {
 
             if(rocket.x >= (invader.x - invader.width/2) && rocket.x <= (invader.x + invader.width/2) &&
                 rocket.y >= (invader.y - invader.height/2) && rocket.y <= (invader.y + invader.height/2)) {
-
+                
                 //  Remove the rocket, set 'bang' so we don't process
                 //  this rocket again.
                 this.rockets.splice(j--, 1);
@@ -527,7 +527,7 @@ PlayState.prototype.update = function(game, dt) {
             game.lives--;
             game.sounds.playSound('explosion');
         }
-
+                
     }
 
     //  Check for invader/ship collisions.
@@ -560,7 +560,7 @@ PlayState.prototype.draw = function(game, dt, ctx) {
 
     //  Clear the background.
     ctx.clearRect(0, 0, game.width, game.height);
-
+    
     //  Draw ship.
     ctx.fillStyle = '#999999';
     ctx.fillRect(this.ship.x - (this.ship.width / 2), this.ship.y - (this.ship.height / 2), this.ship.width, this.ship.height);
@@ -748,7 +748,7 @@ function Bomb(x, y, velocity) {
     this.y = y;
     this.velocity = velocity;
 }
-
+ 
 /*
     Invader 
 
