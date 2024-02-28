@@ -13,7 +13,8 @@
         .grid-container {
             display: grid;
             overflow: scroll;
-            height: 750px;
+            overflow-x: hidden;
+            height: 700px;
             grid-template-columns: repeat(4, 1fr);
             grid-template-rows: repeat(4, 5vw);
             row-gap: 220px;
@@ -73,11 +74,13 @@
 
 <body>
 
-    <div class="topnav">
+    <nav class="topnav">
+        <pre class="siteName">  BARTKOR12 <br><span class="fancyText">       WEBSITE</span> </pre>
         <a href="/index.html">HOME</a>
         <a class="active" href="/games.html">GAMES</a>
         <a href="/software.html">OTHER SOFTWARE</a>
-    </div>
+        <img class="login_icon" src="/login_icon.png">
+    </nav>
 
     <h2 style="font-weight: lighter">
         NOTICE: I did not make these games, I have either modded them, updated them or
@@ -87,7 +90,7 @@
 
     <div class="grid-container">
 
-        <div class="gameWindow"><a href="/snake.html">
+        <div class="gameWindow"><a href="Games/snake.html">
                 <h3 class="displayText">CUSTOMIZABLE SNAKE</h3>
                 <div class="imageContainer">
                     <img src="/gifs/snake.gif">
@@ -96,7 +99,7 @@
         </div>
     </div>
 
-    <div class="gameWindow"><a href="/Breakout.html">
+    <div class="gameWindow"><a href="Games/Breakout.html">
             <h3 class="displayText">BREAKOUT</h3>
             <div class="imageContainer">
                 <img src="/gifs/Breakout.gif">
@@ -105,7 +108,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/pong.html">
+    <div class="gameWindow"><a href="Games/pong.html">
             <h3 class="displayText">PONG</h3>
             <div class="imageContainer">
                 <img src="/gifs/pong.gif">
@@ -114,7 +117,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/spaceinvaders-master/index.html">
+    <div class="gameWindow"><a href="Games/spaceinvaders-master/index.html">
             <h3 class="displayText">SPACE INVADERS</h3>
             <div class="imageContainer">
                 <img src="/gifs/spaceInvaders.gif">
@@ -123,7 +126,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/elematter-js13k-master/build/index.html">
+    <div class="gameWindow"><a href="Games/elematter-js13k-master/build/index.html">
             <h3 class="displayText">ELEMATTER</h3>
             <div class="imageContainer">
                 <img src="/gifs/elematter.gif">
@@ -132,7 +135,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/tetris.html">
+    <div class="gameWindow"><a href="Games/tetris.html">
             <h3 class="displayText">TETRIS</h3>
             <div class="imageContainer">
                 <img src="/gifs/tetris.gif">
@@ -141,7 +144,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/missileDefense.html">
+    <div class="gameWindow"><a href="Games/missileDefense.html">
             <h3 class="displayText">MISSILE DEFENSE</h3>
             <div class="imageContainer">
                 <img src="/gifs/missileDefense.gif">
@@ -151,7 +154,7 @@
     </div>
 
 
-    <div class="gameWindow"><a href="/minesweeper-master/index.html">
+    <div class="gameWindow"><a href="Games/minesweeper-master/index.html">
             <h3 class="displayText">MINESWEEPER</h3>
             <div class="imageContainer">
                 <img src="/gifs/minesweeper.gif">
@@ -160,7 +163,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/DuckHunt-JS-master/dist/index.html">
+    <div class="gameWindow"><a href="Games/DuckHunt-JS-master/dist/index.html">
             <h3 class="displayText">DUCKHUNT</h3>
             <div class="imageContainer">
                 <img src="/gifs/duckhunt.gif">
@@ -169,7 +172,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="/particle-clicker-master/index.html">
+    <div class="gameWindow"><a href="Games/particle-clicker-master/index.html">
             <h3 class="displayText">PARTICLE CLICKER</h3>
             <div class="imageContainer">
                 <img src="/gifs/particleClicker.gif">
@@ -178,7 +181,7 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="HexGL-master/index.html">
+    <div class="gameWindow"><a href="Games/HexGL-master/index.html">
             <h3 class="displayText">HEXGL</h3>
             <div class="imageContainer">
                 <img src="/gifs/HexGl.gif">
@@ -187,14 +190,23 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="Cube-engine-master/play.htm">
+    <div class="gameWindow"><a href="Games/Cube-engine-master/play.htm"> 
         <h3 class="displayText">CUBE ENGINE</h3>
         <div class="imageContainer">
             <img src="/gifs/cubeEngine.gif">
 
     </a>
 </div>
+</div> 
+
+<div class="gameWindow"><a href="Games/2048/index.html"> 
+    <h3 class="displayText">2048</h3>
+    <div class="imageContainer">
+        <img src="/gifs/2048.gif">
+
+</a>
 </div>
+</div> 
 
     <div class="gameWindow">
         More games coming soon</div>
