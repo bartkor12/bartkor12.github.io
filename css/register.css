@@ -1,0 +1,81 @@
+body {
+    overflow: hidden;
+    background: linear-gradient(to top,rgb(176, 214, 248),rgb(238, 246, 253),rgb(176, 214, 248));
+}
+
+.login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginWrapper {
+    padding: 20px;
+    background-color:white;
+    height: 500px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content:space-evenly;
+}
+
+@font-face {
+    font-family: Anta;
+    src: url("/Fonts/Anta-Regular.ttf");
+}
+
+.header {
+    font-family: Anta;
+    text-align: center;
+    font-weight: 200px;
+    letter-spacing: -0.5px;
+}
+
+.description {
+    text-align: center;
+    font-family: Anta;
+    font-weight: 200px;
+    letter-spacing: -0.5px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    border: 0px;
+    height: 50px;
+    font-family: Anta;
+    border-bottom: 1px solid black;
+    font-size: 16px;    
+}
+
+button {
+    font-family: Anta;
+    height: 50px;
+    background-color: rgb(111, 131, 223);
+    box-shadow:darkslateblue -3px 3px;
+    font-size: 24px;
+    color: white;
+}
+
+button:hover {
+    background-color: rgb(134, 149, 218);
+}
+
+#profileChooser {
+    display: none;
+}
+
+img {
+    cursor: pointer;
+    height: 50px;
+}
+
+label {
+    font-family: Anta;
+}

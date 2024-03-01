@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
@@ -13,13 +13,16 @@
     <div class="login">
         <div class="loginWrapper">
             <h1 class="header">Bartkor12 Site</h1>
-            <h4 class="description">Login</h4>
+            <h4 class="description">Register</h4>
             <form>
+                <input type="text" placeholder="Display Name">
                 <input type="email" placeholder="Email">
                 <input type="password" placeholder="Password">
+                <label for="profileChooser"> <img src="img/user.png" alt=""> Select Profile Picture</label>
+                <input type="file" id="profileChooser" placeholder="Password">
                 <button class="button">Sign up</button>
             </form>
-            <h5 class="description">Don't have an account? <a href="/register.html">Register here.</a></h5>
+            <h5 class="description">Already have an account? <a href="/login.html">Login here.</a></h5>
         </div>
     </div>
 

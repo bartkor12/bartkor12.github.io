@@ -31,7 +31,7 @@ html {
     color: rgb(10, 195, 241);
 }
 
-.topnav a:hover {
+.topnav a:not(.loginRedirect):hover {
     transition: 0.2s;
     background-color: #46444e;
     color: rgb(10, 195, 241);
