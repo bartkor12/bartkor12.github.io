@@ -10,6 +10,7 @@
         }
     </style>
     <title>Chatroom</title>
+    <script type="module" src="js/firebase_general.js"></script>
 </head>
 
 <body>
@@ -19,57 +20,62 @@
         <a href="/index.html">HOME</a>
         <a href="/games.html">GAMES</a>
         <a class="active" href="/chatroom.html">CHATROOM</a>
-        <a href="/login.html" class="loginRedirect"><img class="login_icon" src="img/login_icon.png"> </a>
+        <a href="/login.html" class="loginRedirect" id="loginRedirect">
+            <img class="login_icon" src="img/login_icon.png">
+        </a>
     </nav>
 
-</body>
-
-<div class="container">
-
-    <div class="base">
-
-        <div class="directMessages">
-
-            <h2>Chatrooms</h2>
-        </div>
-
-        <div class="currentChat">
-
-            <h2>Chatroom name</h2>
-        </div>
-
-        <div class="chats">
-
-            <div><h2>Global Chat</h2></div>
-        </div>
-
-        <div class="mainChat">
-            <div class="message">
-                <div class="messageInfo">
-                    <img src="
-                    https://cdn.discordapp.com/avatars/603481124840275979/cc48fba93bdbb9af6f35e40b7b3c3d66.webp?size=80"
-                    alt="">
-
-                </div>
-                <div class="messageContent">
-                    <p class="username">Username</p>
-                    <p class="messageText">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, vero! Iste vel porro necessitatibus, dignissimos quaerat nisi ab magnam accusamus fuga, maiores ipsa illum? A inventore voluptas aliquid doloremque eveniet?</p>
-                </div>
-                
-            </div>
-
-        </div>
-
-        <div class="profile">
-
-        </div>
-
-        <div class="chatWrapper">
-
-            <input type="text" placeholder="Type something..." class="chat">
-            <div class="circle"><div class="sendMessage"></div></div>
+    <div class="dropdownContent" id="dropdownContent">
+        <div class="dropdown" id="dropdown">
+            <button id="signOutButton"> > Sign out </button>
         </div>
     </div>
-</div>
+
+    <div class="container">
+
+        <div class="base">
+
+            <div class="directMessages">
+
+                <h2>Chatrooms</h2>
+            </div>
+
+            <div class="currentChat">
+
+                <h2>Chatroom name</h2>
+            </div>
+
+            <div class="chats" id="chats">
+
+            </div>
+
+            <div class="mainChat" id="mainChat">
+
+                <span style="color:rgb(0, 0, 0); font-size: 50px; font-family: Anta-regular; text-align: center;">
+                    ! Sign in to use the chat, only rule is to not post any personal information
+                </span>
+                    
+                    <div class="newChatPopup" id="newChatPopup">
+                        <form id="popupForm" class="popup">
+                            <h4>Share this room code with anyone you want to chat with</h4>
+                            <input type="text" id="roomInput" placeholder="Input room code">
+                            <button id="enterButton" type="button">Enter</button>
+                        </form>
+                    </div>
+            </div>
+
+            <button id="newChatroom">Add new chatroom</button>
+
+            <div class="chatWrapper">
+
+                <input type="text" placeholder="Type something..." class="chat" id="chat">
+                <div class="circle">
+                    <div class="sendMessage" id="sendMessage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
 
 </html>

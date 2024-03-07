@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="css/register.css">
+    <script type="module" src="/js/firebase.js"></script>
 </head>
 
 <body>
@@ -14,15 +15,22 @@
         <div class="loginWrapper">
             <h1 class="header">Bartkor12 Site</h1>
             <h4 class="description">Register</h4>
-            <form>
-                <input type="text" placeholder="Display Name">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password">
-                <label for="profileChooser"> <img src="img/user.png" alt=""> Select Profile Picture</label>
-                <input type="file" id="profileChooser" placeholder="Password">
-                <button class="button">Sign up</button>
+            <form id="registerForm">
+                <input type="text" placeholder="Display Name" id="displayName">
+                <input type="email" placeholder="Email" id="email">
+                <input type="password" placeholder="Password" id="password">
+                <label for="profileChooser"> <img id="pfp" src="img/user.png" alt=""> Select Profile Picture</label>
+                <input type="file" id="profileChooser">
+                <button type="submit" id="button" class="button">Sign up</button>
             </form>
             <h5 class="description">Already have an account? <a href="/login.html">Login here.</a></h5>
+            <h4 id="error"></h4>
+        </div>
+
+        <div class="loginSuccess" id="loginSuccess">
+            <h2>Login Success!</h2>
+            <img src="/img/checkmark.png" alt="">
+            <h2 >Redirecting soon</h2>
         </div>
     </div>
 

@@ -15,7 +15,7 @@
 
   display: grid;
   grid-template-rows: 0.1fr 1fr;
-  grid-template-columns: minmax(0,0.15fr) 1fr;
+  grid-template-columns: minmax(0, 0.15fr) 1fr;
   min-width: 0;
   min-height: 0;
 
@@ -25,7 +25,7 @@
 }
 
 .directMessages {
-  flex:1;
+  flex: 1;
   background-color: rgb(197, 197, 197);
   border-bottom: 1px solid;
 }
@@ -38,6 +38,8 @@
 
 
 .chats {
+  display: flex;
+  flex-direction: column;
   background-color: rgb(197, 197, 197);
 }
 
@@ -45,7 +47,7 @@
   background-color: rgb(228, 228, 228);
   height: 130%;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .profile {
@@ -65,10 +67,10 @@
 
 .sendMessage {
   width: 0;
-	height: 0;
-	border-top: 18px solid transparent;
-	border-left: 34px solid #555;
-	border-bottom: 18px solid transparent;
+  height: 0;
+  border-top: 18px solid transparent;
+  border-left: 34px solid #555;
+  border-bottom: 18px solid transparent;
   translate: 5px;
 }
 
@@ -105,4 +107,58 @@
 
 .message {
   display: flex;
+}
+
+.newChatPopup {
+  background: none;
+  pointer-events: none;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .popup {
+    pointer-events: visible;
+    border: solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    background: linear-gradient(lightgrey, white, lightgrey);
+    height: 225px;
+    width: 400px;
+
+    #roomInput {
+      text-align: center;
+      font-family: Anta-regular;
+      font-size: 24px;
+      width: 80%;
+      height: 40px;
+    }
+
+    h4 {  
+      text-align: center;
+      width: 80%;
+      font-family: Anta-regular;
+    }
+
+    button {
+      border: solid;
+      height: 40px;
+      width: 50%;
+      background-color: lightgreen;
+      font-size: 24px;
+      font-family: Anta-regular;
+      box-shadow: -2px 2px;
+
+    }
+    button:hover {
+      background-color: rgb(182, 255, 200);
+    }
+  }
 }

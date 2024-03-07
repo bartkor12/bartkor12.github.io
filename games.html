@@ -71,6 +71,7 @@
         }
     </style>
     <title>Games</title>
+    <script type="module" src="js/firebase_general.js"></script>
 </head>
 
 <body>
@@ -80,8 +81,17 @@
         <a href="/index.html">HOME</a>
         <a class="active" href="/games.html">GAMES</a>
         <a href="/chatroom.html">CHATROOM</a>
-        <a href="/login.html" class="loginRedirect"><img class="login_icon" src="img/login_icon.png"> </a>
+        <a href="/login.html" class="loginRedirect" id="loginRedirect">
+            <img class="login_icon" src="img/login_icon.png">
+        </a>
     </nav>
+
+    <div class="dropdownContent" id="dropdownContent">
+        <div class="dropdown" id="dropdown">
+          <button id="signOutButton"> > Sign out </button>
+        </div>
+      </div>
+    
 
     <h2 style="font-weight: lighter">
         NOTICE: I did not make these games, I have either modded them, updated them or
@@ -191,28 +201,28 @@
     </div>
     </div>
 
-    <div class="gameWindow"><a href="Games/Cube-engine-master/play.htm"> 
-        <h3 class="displayText">CUBE ENGINE</h3>
-        <div class="imageContainer">
-            <img src="/gifs/cubeEngine.gif">
+    <div class="gameWindow"><a href="Games/Cube-engine-master/play.htm">
+            <h3 class="displayText">CUBE ENGINE</h3>
+            <div class="imageContainer">
+                <img src="/gifs/cubeEngine.gif">
 
-    </a>
-</div>
-</div> 
+        </a>
+    </div>
+    </div>
 
-<div class="gameWindow"><a href="Games/2048-master/index.html"> 
-    <h3 class="displayText">2048</h3>
-    <div class="imageContainer">
-        <img src="/gifs/2048.gif">
+    <div class="gameWindow"><a href="Games/2048-master/index.html">
+            <h3 class="displayText">2048</h3>
+            <div class="imageContainer">
+                <img src="/gifs/2048.gif">
 
-</a>
-</div>
-</div> 
+        </a>
+    </div>
+    </div>
 
     <div class="gameWindow">
         More games coming soon</div>
     </div>
-    
+
 </body>
 
 </html>

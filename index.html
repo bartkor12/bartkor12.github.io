@@ -3,10 +3,10 @@
 
 <head>
   <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="/js/firebase_general.js"></script>
   <style>
-
     body {
-          background-image: url("/Backgrounds/LightMode.jpg");
+      background-image: url("/Backgrounds/LightMode.jpg");
     }
 
     li {
@@ -14,7 +14,8 @@
     }
 
     .todo {
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      position: relative;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       height: 1fr;
       width: 500px;
       overflow: auto;
@@ -24,17 +25,20 @@
     }
 
     .changeLog {
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      overflow:auto;
+      position: relative;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      overflow: auto;
       border: 5px;
       grid-area: changeLog;
       border-style: double;
       display: block;
+      z-index: 0;
     }
 
     .credits {
+      position: relative;
       width: 500px;
-      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       overflow: auto;
       grid-area: credits;
       border-style: double;
@@ -42,7 +46,6 @@
 
     .layout {
       position: relative;
-      border-style: double;
       margin-top: 10px;
       width: 100%;
       height: 875px;
@@ -61,8 +64,16 @@
     <a class="active" href="/index.html">HOME</a>
     <a href="/games.html">GAMES</a>
     <a href="/chatroom.html">CHATROOM</a>
-    <a href="/login.html" class="loginRedirect"><img class="login_icon" src="img/login_icon.png"> </a>
+    <a href="/login.html" class="loginRedirect" id="loginRedirect">
+      <img class="login_icon" src="img/login_icon.png">
+    </a>
   </nav>
+
+  <div class="dropdownContent" id="dropdownContent">
+    <div class="dropdown" id="dropdown">
+      <button id="signOutButton"> > Sign out </button>
+    </div>
+  </div>
 
   <section class="layout">
 
@@ -87,43 +98,48 @@
 
     </div>
 
-<!-- TODO make original assets to not have to give credit to icons -->
+    <!-- TODO make original assets to not have to give credit to icons -->
 
     <div class="credits">
       <h2><u>Credits</u></h2>
       <ul style="overflow: auto;">
-        <li> <a href="https://strawgazelle353.github.io/Arcade-Ally/index.html">Check out my friends website Arcade Ally!</a>
+        <li> <a href="https://strawgazelle353.github.io/Arcade-Ally/index.html">Check out my friends website Arcade
+            Ally!</a>
         </li>
         <li>Basic HTML Games - By <a href="https://gist.github.com/straker">straker</a></li>
         <li>Space Invaders - By <a href="https://github.com/dwmkerr/spaceinvaders?tab=MIT-1-ov-file#readme">
-          dwmkerr</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
-        </li> 
+            dwmkerr</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+        </li>
         <li>Elematter - By <a href="https://github.com/jackrugile/elematter-js13k?tab=MIT-1-ov-file#readme">
-          jackrugile</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+            jackrugile</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
         </li>
         <li>Minesweeper - By <a href="https://github.com/kubowania/minesweeper">
-          kubowania</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+            kubowania</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
         </li>
         <li>DuckHunt JS - By <a href="https://github.com/MattSurabian/DuckHunt-JS?tab=MIT-1-ov-file">
-          Mat Surabian</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+            Mat Surabian</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
         </li>
         <li>Particle Clicker - By <a href="https://github.com/particle-clicker/particle-clicker?tab=MIT-1-ov-file">
-          Igor Babuschkin, Kevin Dungs, Tadej Novak, Gabor Biro</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+            Igor Babuschkin, Kevin Dungs, Tadej Novak, Gabor Biro</a> - <a
+            href="https://opensource.org/license/mit/">MIT LICENSE</a>
         </li>
         <li>HexGL - By <a href="https://github.com/BKcore/HexGL?tab=MIT-1-ov-file">
-          Thibaut Despoulain</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+            Thibaut Despoulain</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
         </li>
         <li>Cube Engine - By <a href="https://github.com/Nurgak/Cube-engine">
-          Sam Hocevar (According to the license)</a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
+            Sam Hocevar (According to the license)</a> - <a href="http://sam.zoy.org/wtfpl/COPYING">chad license</a>
         </li>
-        <li>2048 - By <a href="https://github.com/Nurgak/Cube-engine">
-          Gabriele Cirulli </a> - <a href="http://sam.zoy.org/wtfpl/COPYING">chad license</a>
-        </li>
-        <li>
-          <a href="https://www.flaticon.com/free-icons/profile" title="profile icons">Profile icon used from - Flaticon</a>
+        <li>2048 - By <a href="https://github.com/gabrielecirulli/2048">
+            Gabriele Cirulli </a> - <a href="https://opensource.org/license/mit/">MIT LICENSE</a>
         </li>
         <li>
-          <a href="https://fonts.google.com/share?selection.family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900">Robota font used in the chatroom</a>
+          <a href="https://www.flaticon.com/free-icons/profile" title="profile icons">Profile icon used from -
+            Flaticon</a>
+        </li>
+        <li>
+          <a
+            href="https://fonts.google.com/share?selection.family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900">Robota
+            font used in the chatroom</a>
           - <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>
         </li>
       </ul>
