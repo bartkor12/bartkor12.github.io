@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-import { getFirestore, addDoc, collection, serverTimestamp, onSnapshot, query, where, orderBy } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
+import { getFirestore, addDoc, getDoc, setDoc, collection, serverTimestamp, onSnapshot, query, where, doc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCl9Pg1dTjgtgcnYAgQj9AXhYu84XKEKpA",
@@ -91,7 +91,7 @@ function createMessage(e) {
 
     var currentAccurateDate = null;
 
-    if (e.createdAt == null) { currentAccurateDate = new Date()} else {currentAccurateDate = e.createdAt.toDate()}
+    if (e.createdAt == null) { currentAccurateDate = new Date() } else { currentAccurateDate = e.createdAt.toDate() }
 
     const timeString = currentAccurateDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     const dateString = currentAccurateDate.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -110,6 +110,7 @@ function createMessage(e) {
 const newChatPopup = document.getElementById("newChatPopup");
 const popupForm = document.getElementById("popupForm");
 const roomInput = document.getElementById("roomInput");
+const chatroomName = document.getElementById("chatroomName");
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -133,53 +134,131 @@ onAuthStateChanged(auth, (user) => {
 
             if (chat != null) {
 
-                var room = "main";
+                let room = "main";
+
+                async function changeRoom() {
+                    // Clear existing messages when switching rooms
+                    mainChat.innerHTML = '';
+                    // Query messages for the new room
+                    const queryMessages = query(messageRef, where("room", "==", room));
+                    onSnapshot(queryMessages, (snapshot) => {
+                        messages = [];
+
+                        snapshot.forEach((doc) => {
+                            messages.push({ ...doc.data(), id: doc.id }); //thank god for tutorials
+                        });
+                        messages.sort((a, b) => {
+                            if (a.createdAt < b.createdAt) return -1;
+                            if (a.createdAt > b.createdAt) return 1;
+                            return 0;
+                        });
+
+                        // Process sorted messages
+                        messages.forEach((message) => {
+                            createMessage(message);
+                        });
+                    });
+                }
+
+                async function loadChatroomData() {
+                    const userDataRef = doc(firestore, "userData", user.uid);
+                    const docSnapshot = await getDoc(userDataRef);
+                    
+                    if (docSnapshot.exists()) {
+                        
+                        const userData = docSnapshot.data()
+                        if (userData.currentRoom == null) {userData.currentRoom = "main"}
+                        
+                        userData.chatrooms.forEach((txt) => {
+                            createButton(txt);
+                        })
+
+
+                        room = userData.currentRoom
+                        chatroomName.textContent = room
+                        console.log("Current loaded room: " + userData.currentRoom)
+                        
+                        await changeRoom()
+                        
+                    }
+                    else { console.error("Failed to load") }
+                }
+
+                async function saveChatroomDataToClient(currentRoom) {
+
+                    await loadChatroomData()
+
+
+                    const buttons = document.getElementsByClassName("switchChatroomBtn")
+                    const buttonTextArray = [];
+
+                    for (let item of buttons) {
+                        let h2Text = item.querySelector("h2").textContent
+                        buttonTextArray.push(h2Text)
+                    }
+                    await setDoc(doc(firestore, "userData", user.uid), {
+                        chatrooms: buttonTextArray,
+                        currentRoom: currentRoom
+                    })
+
+                    // waits for the chats to load before continuing
+                }
 
                 function createButton(txt) {
+
+                    const buttons = document.getElementsByClassName("switchChatroomBtn")
+
+                    for (let item of buttons) {
+                        if (item.querySelector("h2").textContent == txt) { return }
+                    }
+
                     const btn = document.createElement("button")
+                    btn.className = "switchChatroomBtn"
                     const h2 = document.createElement("h2")
                     h2.textContent = txt;
 
-                    btn.addEventListener("click", () => {
-                        room = txt;
-                        console.log(room);
+                    saveChatroomDataToClient(txt);
 
-                        // Clear existing messages when switching rooms
-                        mainChat.innerHTML = '';
+                    btn.addEventListener("click", async () => {
+                        const newRoom = txt
 
-                        // Query messages for the new room
-                        const queryMessages = query(messageRef, where("room", "==", room));
-                        onSnapshot(queryMessages, (snapshot) => {
-                            messages = [];
+                        await saveChatroomDataToClient(newRoom);
+                        room = newRoom;
 
-                            snapshot.forEach((doc) => {
-                                messages.push({ ...doc.data(), id: doc.id }); //thank god for tutorials
-                            });
-                            messages.sort((a, b) => {
-                                if (a.createdAt < b.createdAt) return -1;
-                                if (a.createdAt > b.createdAt) return 1;
-                                return 0;
-                            });
+                        console.log("Currently in: " + newRoom);
 
-                            // Process sorted messages
-                            messages.forEach((message) => {
-                                createMessage(message);
-                            });
-                        });
+                        await changeRoom()
+                        chatroomName.textContent = room
                     });
+
+                    btn.addEventListener("contextmenu", async (e) => {
+                        e.preventDefault()
+                        btn.remove()
+
+                        const buttons = document.getElementsByClassName("switchChatroomBtn")
+                        const buttonTextArray = [];
+    
+                        for (let item of buttons) {
+                            let h2Text = item.querySelector("h2").textContent
+                            buttonTextArray.push(h2Text)
+                        }
+                        await setDoc(doc(firestore, "userData", user.uid), {
+                            chatrooms: buttonTextArray
+                        })
+                    })
 
                     btn.appendChild(h2)
                     chats.appendChild(btn)
                 };
 
 
-                var debounce = false;
+                let debounce = false;
                 newChatroom.addEventListener("click", () => {
                     if (debounce) {
-                        roomInput.innerHTML = ""
                         newChatPopup.style.display = "none";
                         debounce = false;
                     } else {
+                        roomInput.value = ""
                         newChatPopup.style.display = "flex";
                         roomInput.focus();
                         debounce = true;
@@ -192,7 +271,6 @@ onAuthStateChanged(auth, (user) => {
                     newChatPopup.style.display = "none"
 
                     const text = roomInput.value
-
                     console.log(text)
                     createButton(text);
                 })
@@ -200,29 +278,10 @@ onAuthStateChanged(auth, (user) => {
                 //* frickin love javascript syntax (sarcasm)
                 const messageRef = collection(firestore, "messages");
 
-
                 let messages = [];
 
-                const queryMessages = query(messageRef, where("room", "==", room));
-
-                onSnapshot(queryMessages, (snapshot) => {
-                    messages = [];
-
-                    snapshot.forEach((doc) => {
-                        messages.push({ ...doc.data(), id: doc.id }); //thank god for tutorials
-                    });
-                    messages.sort((a, b) => {
-                        if (a.createdAt < b.createdAt) return -1;
-                        if (a.createdAt > b.createdAt) return 1;
-                        return 0;
-                    });
-
-                    // Process sorted messages
-                    messages.forEach((message) => {
-                        createMessage(message);
-                    });
-                });
-
+                // default
+                changeRoom();
 
                 const chatFunction = async () => {
                     var message = chat.value;
@@ -248,6 +307,8 @@ onAuthStateChanged(auth, (user) => {
 
 
                 createButton("main")
+
+                loadChatroomData();
             };
         }
     }
