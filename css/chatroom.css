@@ -109,6 +109,10 @@
   display: flex;
 }
 
+.message:hover {
+  background-color: lightgrey;
+}
+
 .newChatPopup {
   background: none;
   pointer-events: none;

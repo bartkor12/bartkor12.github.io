@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
-import { getFirestore, addDoc, getDoc, setDoc, collection, serverTimestamp, onSnapshot, query, where, doc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
+import { getFirestore, addDoc, getDoc, setDoc, collection, serverTimestamp, onSnapshot, query, where, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCl9Pg1dTjgtgcnYAgQj9AXhYu84XKEKpA",
@@ -48,65 +48,6 @@ const mainChat = document.getElementById("mainChat");
 const newChatroom = document.getElementById("newChatroom")
 const chats = document.getElementById("chats");
 
-function createMessage(e) {
-
-    const existingMessage = document.getElementById(`message-${e.id}`);
-    if (existingMessage) {
-        return; // Exit function if message already exists
-    }
-
-    const messageDiv = document.createElement("div")
-    messageDiv.className = "message"
-    messageDiv.id = `message-${e.id}`
-
-    const messageInfoDiv = document.createElement("div")
-    messageInfoDiv.className = "messageInfo"
-
-    const profilePicture = document.createElement("img")
-
-    const messageContentDiv = document.createElement("div")
-    messageContentDiv.classList = "messageContent"
-
-    const usernameAndDate = document.createElement("p")
-    usernameAndDate.className = "usernameAndDate"
-
-    const username = document.createElement("span")
-    const date = document.createElement("span")
-    username.className = "username"
-    date.style.fontSize = "15px"
-    date.style.whiteSpace = "pre-wrap"
-
-    const messageText = document.createElement("p")
-    messageText.className = "messageText"
-
-    usernameAndDate.appendChild(username)
-    usernameAndDate.appendChild(date)
-
-    mainChat.appendChild(messageDiv)
-    messageDiv.appendChild(messageInfoDiv)
-    messageDiv.appendChild(messageContentDiv)
-    messageInfoDiv.appendChild(profilePicture)
-    messageContentDiv.appendChild(usernameAndDate)
-    messageContentDiv.appendChild(messageText)
-
-    var currentAccurateDate = null;
-
-    if (e.createdAt == null) { currentAccurateDate = new Date() } else { currentAccurateDate = e.createdAt.toDate() }
-
-    const timeString = currentAccurateDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const dateString = currentAccurateDate.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' });
-    const [day, month, year] = dateString.split('/');
-    const formattedDate = `${timeString} ${day}/${month}/${year}`;
-
-    date.textContent = "   " + formattedDate
-
-    username.textContent = e.user
-    profilePicture.src = e.photoURL
-    messageText.textContent = e.text
-
-    mainChat.scrollTop = mainChat.scrollHeight
-};
-
 const newChatPopup = document.getElementById("newChatPopup");
 const popupForm = document.getElementById("popupForm");
 const roomInput = document.getElementById("roomInput");
@@ -133,6 +74,76 @@ onAuthStateChanged(auth, (user) => {
             name.textContent = theUser.displayName
 
             if (chat != null) {
+
+                function createMessage(msg) {
+
+                    const existingMessage = document.getElementById(`message-${msg.id}`);
+                    if (existingMessage) {
+                        return; // Exit function if message already exists
+                    }
+
+                    const messageDiv = document.createElement("div")
+                    messageDiv.className = "message"
+                    messageDiv.id = `message-${msg.id}`
+
+                    messageDiv.addEventListener("contextmenu", (e) => {
+                        e.preventDefault()
+                        if (msg.user.search(auth.currentUser.displayName) == 0) {
+                            messageDiv.style.cssText = "transition: 0.2s; background-color: rgb(255, 200, 200);"
+                            setTimeout(() => {
+                                messageDiv.remove()
+                                deleteDoc(doc(firestore,"messages",msg.id))
+                            }, 200);
+                        }
+                    })
+
+                    const messageInfoDiv = document.createElement("div")
+                    messageInfoDiv.className = "messageInfo"
+
+                    const profilePicture = document.createElement("img")
+
+                    const messageContentDiv = document.createElement("div")
+                    messageContentDiv.classList = "messageContent"
+
+                    const usernameAndDate = document.createElement("p")
+                    usernameAndDate.className = "usernameAndDate"
+
+                    const username = document.createElement("span")
+                    const date = document.createElement("span")
+                    username.className = "username"
+                    date.style.fontSize = "15px"
+                    date.style.whiteSpace = "pre-wrap"
+
+                    const messageText = document.createElement("p")
+                    messageText.className = "messageText"
+
+                    usernameAndDate.appendChild(username)
+                    usernameAndDate.appendChild(date)
+
+                    mainChat.appendChild(messageDiv)
+                    messageDiv.appendChild(messageInfoDiv)
+                    messageDiv.appendChild(messageContentDiv)
+                    messageInfoDiv.appendChild(profilePicture)
+                    messageContentDiv.appendChild(usernameAndDate)
+                    messageContentDiv.appendChild(messageText)
+
+                    var currentAccurateDate = null;
+
+                    if (msg.createdAt == null) { currentAccurateDate = new Date() } else { currentAccurateDate = msg.createdAt.toDate() }
+
+                    const timeString = currentAccurateDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const dateString = currentAccurateDate.toLocaleDateString([], { day: '2-digit', month: '2-digit', year: 'numeric' });
+                    const [day, month, year] = dateString.split('/');
+                    const formattedDate = `${timeString} ${day}/${month}/${year}`;
+
+                    date.textContent = "   " + formattedDate
+
+                    username.textContent = msg.user
+                    profilePicture.src = msg.photoURL
+                    messageText.textContent = msg.text
+
+                    mainChat.scrollTop = mainChat.scrollHeight
+                };
 
                 let room = "main";
 
@@ -163,12 +174,12 @@ onAuthStateChanged(auth, (user) => {
                 async function loadChatroomData() {
                     const userDataRef = doc(firestore, "userData", user.uid);
                     const docSnapshot = await getDoc(userDataRef);
-                    
+
                     if (docSnapshot.exists()) {
-                        
+
                         const userData = docSnapshot.data()
-                        if (userData.currentRoom == null) {userData.currentRoom = "main"}
-                        
+                        if (userData.currentRoom == null) { userData.currentRoom = "main" }
+
                         userData.chatrooms.forEach((txt) => {
                             createButton(txt);
                         })
@@ -177,9 +188,9 @@ onAuthStateChanged(auth, (user) => {
                         room = userData.currentRoom
                         chatroomName.textContent = room
                         console.log("Current loaded room: " + userData.currentRoom)
-                        
+
                         await changeRoom()
-                        
+
                     }
                     else { console.error("Failed to load") }
                 }
@@ -237,7 +248,7 @@ onAuthStateChanged(auth, (user) => {
 
                         const buttons = document.getElementsByClassName("switchChatroomBtn")
                         const buttonTextArray = [];
-    
+
                         for (let item of buttons) {
                             let h2Text = item.querySelector("h2").textContent
                             buttonTextArray.push(h2Text)
