@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js';
 import { getFirestore, addDoc, getDoc, setDoc, collection, serverTimestamp, onSnapshot, query, where, doc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js';
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCl9Pg1dTjgtgcnYAgQj9AXhYu84XKEKpA",
@@ -17,6 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const firestore = getFirestore(app);
+const storage = getStorage()
 
 firestore.SnapshotOptions
 
@@ -52,6 +54,7 @@ const newChatPopup = document.getElementById("newChatPopup");
 const popupForm = document.getElementById("popupForm");
 const roomInput = document.getElementById("roomInput");
 const chatroomName = document.getElementById("chatroomName");
+const sendImage = document.getElementById("sendImage");
 
 onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -75,6 +78,49 @@ onAuthStateChanged(auth, (user) => {
 
             if (chat != null) {
 
+                const messageRef = collection(firestore, "messages");
+
+                sendImage.addEventListener("change", (e) => {
+                    console.log('Uploaded file');
+                    const file = sendImage.files[0]
+                    var idxDot = file.name.lastIndexOf(".") + 1;
+                    var extFile = file.name.substr(idxDot, file.name.length).toLowerCase();
+                    if (extFile == "jpg" || extFile == "jpeg" || extFile == "png") {
+
+                        var storageRef = ref(storage, ('userImages/' + file.name));
+                        uploadBytes(storageRef, file).then((snapshot) => {
+                            console.log('Uploaded file succesfully');
+
+
+                            getDownloadURL(storageRef)
+                                .then(async (url) => {
+                                    //update user credentials
+
+                                    await addDoc(messageRef, {
+                                        createdAt: serverTimestamp(),
+                                        user: auth.currentUser.displayName,
+                                        room: room,
+                                        photoURL: auth.currentUser.photoURL,
+                                        imageURL: url
+                                    });
+                                })
+                                .catch((error) => {
+                                    console.error("Error getting url")
+                                });
+                        })
+
+
+                    } else {
+                        chat.placeholder = "Incorrect file format, only input jpegs, pngs or jpgs"
+                        setTimeout(async () => {
+                            chat.placeholder = "Type something..."
+                        }, 4000);
+                    }
+
+                    // reset value
+                    e.target.value = ''
+                })
+
                 function createMessage(msg) {
 
                     const existingMessage = document.getElementById(`message-${msg.id}`);
@@ -92,7 +138,16 @@ onAuthStateChanged(auth, (user) => {
                             messageDiv.style.cssText = "transition: 0.2s; background-color: rgb(255, 200, 200);"
                             setTimeout(() => {
                                 messageDiv.remove()
-                                deleteDoc(doc(firestore,"messages",msg.id))
+                                deleteDoc(doc(firestore, "messages", msg.id))
+                                if (msg.imageURL != null ) {
+                                    deleteObject(ref(storage,msg.imageURL))
+                                    .then(() => {
+                                        console.log("Success deleting image")
+                                    })
+                                    .catch(() => {
+                                        console.log("Image already deleted")
+                                    })
+                                }
                             }, 200);
                         }
                     })
@@ -140,7 +195,18 @@ onAuthStateChanged(auth, (user) => {
 
                     username.textContent = msg.user
                     profilePicture.src = msg.photoURL
+
+                    if (msg.text != null) {
                     messageText.textContent = msg.text
+                    } else {
+                        const img = document.createElement("img")
+                        messageContentDiv.appendChild(img)
+                        img.src = msg.imageURL
+                        img.style.cssText = "  max-width: 200px; max-height: 200px;"
+                        img.onload = () => {
+                            mainChat.scrollTop = mainChat.scrollHeight
+                        }
+                    }
 
                     mainChat.scrollTop = mainChat.scrollHeight
                 };
@@ -285,9 +351,6 @@ onAuthStateChanged(auth, (user) => {
                     console.log(text)
                     createButton(text);
                 })
-
-                //* frickin love javascript syntax (sarcasm)
-                const messageRef = collection(firestore, "messages");
 
                 let messages = [];
 
