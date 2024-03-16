@@ -20,8 +20,6 @@ const auth = getAuth();
 const firestore = getFirestore(app);
 const storage = getStorage()
 
-firestore.SnapshotOptions
-
 //variables
 const loginRedirect = document.getElementById("loginRedirect");
 const profileDropdown = document.createElement("button");

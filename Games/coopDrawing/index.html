@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing</title>
+    <script type="module" src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/nano.min.css" />
+    <!-- 'nano' theme -->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+</head>
+
+<body style="overflow: hidden;">
+
+    <div id="signinmessage" style="height: 80vh;display: none; justify-content: center; align-items: center;">
+        <h1>Sign in to play (sorry it is the only way for this to function)</h1>
+    </div>
+
+    <div id="toolbar">
+        <div id="picker">
+            <h3>Colour <a href="https://github.com/simonwep/pickr">Pickr</a></h3>
+            <div class="color-picker"></div>
+
+        </div>
+    </div>
+
+    <div id="users">
+
+    </div>
+
+    <div id="cursor"></div>
+
+    <canvas id="canvas"></canvas>
+
+</body>
+
+</html>
