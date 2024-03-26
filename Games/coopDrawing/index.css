@@ -10,6 +10,17 @@ canvas {
     min-height: 100%;
 }
 
+#signinmessage {
+    font-family: Anta;
+    font-weight: 100;
+    font-size: 40px;
+    background: linear-gradient(rgb(6, 6, 204),blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color:transparent;
+    
+}
+
 #toolbar {
     height: 110vh;
     position: fixed;

@@ -1,0 +1,80 @@
+body,
+html {
+    overflow: hidden;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+canvas {
+    display: none;
+    margin: 0 auto;
+    border: 5px solid;
+    position: relative;
+}
+
+@font-face {
+    font-family: Anta;
+    src: url(/Fonts/Anta-Regular.ttf);
+}
+
+#signinmessage {
+    font-family: Anta;
+    font-weight: 100;
+    font-size: 40px;
+    background: linear-gradient(rgb(6, 6, 204), blue);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#matchmaking {
+    display: none;
+    font-family: Anta;
+    font-size: large;
+    color: rgb(131, 131, 233);
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 600px;
+    height: 400px;
+    border-radius: 5%;
+    background-color: rgb(41, 41, 41);
+}
+
+#canvasContainer {
+    display: none;
+    position: relative;
+    background: none;
+    margin: 0;
+    padding: 0;
+    width: 800px;
+}
+
+.name {
+    font-family: Anta;
+    font-size: 30px;
+    position: absolute;
+    top: -75px;
+}
+
+#name1 {
+    left: 0;
+}
+
+#name2 {
+    right: 0;
+}
+
+#submit {
+    background-color: rgb(131, 233, 131);
+    font-family: Anta;
+    font-size: 40px;
+    border-radius: 5px;
+    height: 60px;
+    width: 350px;
+}

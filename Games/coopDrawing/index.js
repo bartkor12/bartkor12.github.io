@@ -69,6 +69,8 @@ canvas.height = 1080
 onAuthStateChanged(auth, (user) => {
     if (user) {
 
+        document.getElementById("signinmessagecontainer").remove()
+
         const canvasRef = ref(database, "public/coopDrawingCanvas/URL")
         const onlineUsersRef = ref(database, "public/coopDrawingCanvas/online/" + auth.currentUser.uid)
 

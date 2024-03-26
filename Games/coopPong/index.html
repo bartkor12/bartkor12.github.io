@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Pong</title>
+    <script type="module" src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <div id="container">
+
+        <form id="matchmaking">
+            <h1 style="text-align: center;">Start Matchmaking <br> <span style="font-size: 11px; font-weight: 200;">(NOTICE:this game is kinda laggy due to being poorly optimized and using unconvential methods to run)</span></h1>
+            <button id="submit" type="submit">Go</button>
+        </form>
+
+        <a id="signinmessage" href="/login.html">Sign in to play</a>
+
+        <div id="canvasContainer">
+            <canvas id="canvas" width="800" height="700"></canvas>
+
+            <h1 id="name1" class="name">Name1</h1>
+            <h1 id="name2" class="name">Name2</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>
